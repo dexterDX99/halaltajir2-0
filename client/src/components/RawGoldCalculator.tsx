@@ -173,8 +173,8 @@ export default function RawGoldCalculator() {
               {!!weightGram && weightTola && (
                 <p className="text-xs text-gray-500 mt-1">Equivalent to {weightTola} tola</p>
               )}
-              {!weightGram && weightTola && (
-                <p className="text-xs text-gray-500 mt-1">Equivalent to {weightTola} tola</p>
+              {!weightGram && weightGram && (
+                <p className="text-xs text-gray-500 mt-1">Equivalent to {weightGram} grams</p>
               )}
             </div>
           </div>
