@@ -309,16 +309,6 @@ export default function RawGoldCalculator() {
                   <p className="text-sm font-semibold">Rs. {calculationResult.pricePerTolaFloat.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Selected Gold Purity</p>
-                  <p className="text-sm font-semibold">{calculationResult.purityFloat}K Gold</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Gold Price Per Tola ({calculationResult.purityFloat}K)</p>
-                  <p className="text-sm font-semibold">
-                    Rs. {(calculationResult.pricePerTolaFloat * (calculationResult.purityFloat / 24)).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                  </p>
-                </div>
-                <div>
                   <p className="text-xs text-gray-500">Gold Price Per Gram ({calculationResult.purityFloat}K)</p>
                   <p className="text-sm font-semibold">
                     Rs. {calculationResult.pricePerGram.toLocaleString(undefined, { maximumFractionDigits: 2 })}
