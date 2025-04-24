@@ -18,6 +18,7 @@ export default function RawGoldCalculator() {
   }, []);
   const [weightGram, setWeightGram] = useState<string>("");
   const [weightTola, setWeightTola] = useState<string>("");
+  const [isWeightInGrams, setIsWeightInGrams] = useState<boolean>(false);
   const [purity, setPurity] = useState<string>("24");
   const [buyingPrice, setBuyingPrice] = useState<string>("");
   const [buyingPricePerTola, setBuyingPricePerTola] = useState<string>("");
@@ -118,20 +119,8 @@ export default function RawGoldCalculator() {
         <div className="space-y-4">
           <div>
             <RadioGroup
-              value={weightGram ? "grams" : "tola"}
-              onValueChange={(value) => {
-                if (value === "grams") {
-                  if (weightTola) {
-                    setWeightGram((parseFloat(weightTola) * 11.664).toFixed(2));
-                  }
-                  setWeightTola("");
-                } else {
-                  if (weightGram) {
-                    setWeightTola((parseFloat(weightGram) / 11.664).toFixed(3));
-                  }
-                  setWeightGram("");
-                }
-              }}
+              value={isWeightInGrams ? "grams" : "tola"}
+              onValueChange={(value) => setIsWeightInGrams(value === "grams")}
               className="flex gap-4 mb-4"
             >
               <div className="flex items-center space-x-2">
@@ -173,17 +162,18 @@ export default function RawGoldCalculator() {
               </label>
               <Input 
                 type="number" 
-                placeholder={!!weightGram ? "Enter weight in grams" : "Enter weight in tola"}
+                placeholder={isWeightInGrams ? "Enter weight in grams" : "Enter weight in tola"}
                 className="w-full border border-green-100 focus:border-green-200 focus:ring-green-200 rounded-md transition-all"
-                value={!!weightGram ? weightGram : weightTola}
+                value={isWeightInGrams ? weightGram : weightTola}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  if (!!weightGram) {
-                    setWeightGram(value);
-                    convertGramToTola(value);
+                  if (isWeightInGrams) {
+                    setWeightGram(e.target.value);
+                    const newTolaWeight = (parseFloat(e.target.value) / 11.664).toFixed(3);
+                    setWeightTola(newTolaWeight);
                   } else {
-                    setWeightTola(value);
-                    convertTolaToGram(value);
+                    setWeightTola(e.target.value);
+                    const newGramWeight = (parseFloat(e.target.value) * 11.664).toFixed(2);
+                    setWeightGram(newGramWeight);
                   }
                 }}
               />
