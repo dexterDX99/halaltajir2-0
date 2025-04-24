@@ -23,13 +23,19 @@ export default function Calculator() {
             value="investment"
             className="flex-1 rounded-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-green-600 data-[state=active]:text-white transition-all"
           >
-            Cash Investment
+            Cash
           </TabsTrigger>
           <TabsTrigger
             value="gold"
             className="flex-1 rounded-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-green-600 data-[state=active]:text-white transition-all"
           >
-            Gold Investment
+            Gold Jewelry
+          </TabsTrigger>
+          <TabsTrigger
+            value="raw-gold"
+            className="flex-1 rounded-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-green-600 data-[state=active]:text-white transition-all"
+          >
+            Raw Gold
           </TabsTrigger>
         </TabsList>
 
@@ -46,6 +52,13 @@ export default function Calculator() {
             <GoldCalculator />
           </div>
 
+          <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden p-4">
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">Raw Gold Calculator</h3>
+            <RawGoldCalculator />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="raw-gold">
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden p-4">
             <h3 className="text-sm font-semibold text-gray-900 mb-3">Raw Gold Calculator</h3>
             <RawGoldCalculator />
