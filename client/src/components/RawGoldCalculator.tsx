@@ -69,24 +69,31 @@ export default function RawGoldCalculator() {
       }
 
       const pricePerGram = pricePerTolaFloat / 11.664;
-      const totalGoldValue = totalWeightInGrams * pricePerGram;
+      // Calculate current market value based on weight and current price
+      const currentMarketValue = totalWeightInGrams * pricePerGram;
 
-      const buyingPricePerTolaValue = isPricePerTola 
-        ? buyingPriceFloat 
-        : (buyingPriceFloat / totalWeightInTola);
-
+      // Calculate total buying price consistently
       const totalBuyingPrice = isPricePerTola
         ? buyingPriceFloat * totalWeightInTola
         : buyingPriceFloat;
+
+      // Calculate per tola values
+      const buyingPricePerTolaValue = totalBuyingPrice / totalWeightInTola;
+
+      // Calculate profit/loss
+      const profitLoss = currentMarketValue - totalBuyingPrice;
+      const profitLossPercentage = (profitLoss / totalBuyingPrice) * 100;
 
       setCalculationResult({
         pricePerTolaFloat,
         purityFloat: 24,
         pricePerGram,
         weightGramFloat: totalWeightInGrams,
-        totalGoldValue,
+        totalGoldValue: currentMarketValue,
         buyingPrice: totalBuyingPrice,
-        buyingPricePerTola: buyingPricePerTolaValue
+        buyingPricePerTola: buyingPricePerTolaValue,
+        profitLoss,
+        profitLossPercentage
       });
     } catch (error) {
       console.error("Calculation error:", error);
@@ -339,9 +346,9 @@ export default function RawGoldCalculator() {
                     </div>
                     <div>
                       <p className="text-xs text-gray-500">Total Net Profit/Loss</p>
-                      <p className={`text-sm font-semibold ${(calculationResult.totalGoldValue - calculationResult.buyingPrice) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        Rs. {Math.abs(calculationResult.totalGoldValue - calculationResult.buyingPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                        {(calculationResult.totalGoldValue - calculationResult.buyingPrice) >= 0 ? ' (Profit' : ' (Loss'} - {((calculationResult.totalGoldValue - calculationResult.buyingPrice) / calculationResult.buyingPrice * 100).toFixed(2)}%)
+                      <p className={`text-sm font-semibold ${calculationResult.profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        Rs. {Math.abs(calculationResult.profitLoss).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                        {calculationResult.profitLoss >= 0 ? ' (Profit' : ' (Loss'} - {calculationResult.profitLossPercentage.toFixed(2)}%)
                       </p>
                     </div>
                   </div>
