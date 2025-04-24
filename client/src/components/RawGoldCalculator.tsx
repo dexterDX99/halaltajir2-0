@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function RawGoldCalculator() {
   const [pricePerTola, setPricePerTola] = useState<string>(localStorage.getItem('goldPrice24K') || "");
@@ -116,38 +117,52 @@ export default function RawGoldCalculator() {
 
         <div className="space-y-4">
           <div>
-            <div className="flex gap-4 mb-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="weightType"
+            <RadioGroup
+              value={!!weightGram ? "grams" : "tola"}
+              onValueChange={(value) => {
+                if (value === "grams") {
+                  const currentGramValue = weightGram;
+                  setWeightTola("");
+                  setWeightGram(currentGramValue);
+                } else {
+                  const currentTolaValue = weightTola;
+                  setWeightGram("");
+                  setWeightTola(currentTolaValue);
+                }
+              }}
+              className="flex gap-4 mb-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
                   value="tola"
-                  checked={!weightGram}
-                  onChange={() => {
-                    const currentTolaValue = weightTola;
-                    setWeightGram("");
-                    setWeightTola(currentTolaValue);
-                  }}
-                  className="mr-2"
+                  id="r-tola"
+                  className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
                 />
-                Weight in Tola
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="weightType"
+                <label
+                  htmlFor="r-tola"
+                  className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
+                    !weightGram ? "bg-emerald-50 text-emerald-900" : ""
+                  }`}
+                >
+                  Weight in Tola
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
                   value="grams"
-                  checked={!!weightGram}
-                  onChange={() => {
-                    const currentGramValue = weightGram;
-                    setWeightTola("");
-                    setWeightGram(currentGramValue);
-                  }}
-                  className="mr-2"
+                  id="r-grams"
+                  className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
                 />
-                Weight in Grams
-              </label>
-            </div>
+                <label
+                  htmlFor="r-grams"
+                  className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
+                    !!weightGram ? "bg-emerald-50 text-emerald-900" : ""
+                  }`}
+                >
+                  Weight in Grams
+                </label>
+              </div>
+            </RadioGroup>
 
             <div>
               <label className="text-sm font-medium text-gray-700 mb-1 block">
