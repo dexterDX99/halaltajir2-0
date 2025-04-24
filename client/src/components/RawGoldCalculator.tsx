@@ -82,7 +82,7 @@ export default function RawGoldCalculator() {
 
       // Calculate profit/loss
       const profitLoss = currentMarketValue - totalBuyingPrice;
-      const profitLossPercentage = (profitLoss / totalBuyingPrice) * 100;
+      const profitLossPercentage = ((currentMarketValue - totalBuyingPrice) / totalBuyingPrice) * 100;
 
       setCalculationResult({
         pricePerTolaFloat,
@@ -348,7 +348,7 @@ export default function RawGoldCalculator() {
                       <p className="text-xs text-gray-500">Total Net Profit/Loss</p>
                       <p className={`text-sm font-semibold ${calculationResult.profitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         Rs. {Math.abs(calculationResult.profitLoss).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                        {calculationResult.profitLoss >= 0 ? ' (Profit' : ' (Loss'} - {calculationResult.profitLossPercentage.toFixed(2)}%)
+                        {calculationResult.profitLoss >= 0 ? ' (Profit' : ' (Loss'} {Math.abs(calculationResult.profitLossPercentage).toFixed(2)}%)
                       </p>
                     </div>
                   </div>
