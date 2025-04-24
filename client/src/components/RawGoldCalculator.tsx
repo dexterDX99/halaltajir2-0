@@ -80,9 +80,10 @@ export default function RawGoldCalculator() {
       // Calculate per tola values
       const buyingPricePerTolaValue = totalBuyingPrice / totalWeightInTola;
 
-      // Calculate profit/loss
-      const profitLoss = currentMarketValue - totalBuyingPrice;
-      const profitLossPercentage = ((currentMarketValue - totalBuyingPrice) / totalBuyingPrice) * 100;
+      // Calculate profit/loss per tola
+      const profitLossPerTola = pricePerTolaFloat - buyingPricePerTolaValue;
+      const totalProfitLoss = profitLossPerTola * totalWeightInTola;
+      const profitLossPercentage = (profitLossPerTola / buyingPricePerTolaValue) * 100;
 
       setCalculationResult({
         pricePerTolaFloat,
@@ -92,8 +93,9 @@ export default function RawGoldCalculator() {
         totalGoldValue: currentMarketValue,
         buyingPrice: totalBuyingPrice,
         buyingPricePerTola: buyingPricePerTolaValue,
-        profitLoss,
-        profitLossPercentage
+        profitLoss: totalProfitLoss,
+        profitLossPercentage,
+        profitLossPerTola
       });
     } catch (error) {
       console.error("Calculation error:", error);
