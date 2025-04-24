@@ -264,6 +264,7 @@ export default function RawGoldCalculator() {
                         setBuyingPricePerTola(perTolaPrice);
                       }
                     }
+                    calculatePrice();
                   }}
                   required
                 />
