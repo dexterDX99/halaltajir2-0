@@ -118,16 +118,18 @@ export default function RawGoldCalculator() {
         <div className="space-y-4">
           <div>
             <RadioGroup
-              value={!!weightGram ? "grams" : "tola"}
+              value={weightGram ? "grams" : "tola"}
               onValueChange={(value) => {
                 if (value === "grams") {
-                  const currentGramValue = weightGram;
+                  if (weightTola) {
+                    setWeightGram((parseFloat(weightTola) * 11.664).toFixed(2));
+                  }
                   setWeightTola("");
-                  setWeightGram(currentGramValue);
                 } else {
-                  const currentTolaValue = weightTola;
+                  if (weightGram) {
+                    setWeightTola((parseFloat(weightGram) / 11.664).toFixed(3));
+                  }
                   setWeightGram("");
-                  setWeightTola(currentTolaValue);
                 }
               }}
               className="flex gap-4 mb-4"
