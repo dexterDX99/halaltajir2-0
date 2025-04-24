@@ -191,30 +191,42 @@ export default function GoldCalculator() {
         </div>
 
         <div className="space-y-4">
-          <div className="flex gap-4">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="priceType"
+          <RadioGroup
+            value={isPricePerTola ? "perTola" : "total"}
+            onValueChange={(value) => setIsPricePerTola(value === "perTola")}
+            className="flex gap-4"
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem
                 value="total"
-                checked={!isPricePerTola}
-                onChange={() => setIsPricePerTola(false)}
-                className="mr-2"
+                id="total"
+                className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
               />
-              Total Price
-            </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="priceType"
+              <label
+                htmlFor="total"
+                className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
+                  !isPricePerTola ? "bg-emerald-50 text-emerald-900" : ""
+                }`}
+              >
+                Total Price
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem
                 value="perTola"
-                checked={isPricePerTola}
-                onChange={() => setIsPricePerTola(true)}
-                className="mr-2"
+                id="perTola"
+                className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
               />
-              Price Per Tola
-            </label>
-          </div>
+              <label
+                htmlFor="perTola"
+                className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
+                  isPricePerTola ? "bg-emerald-50 text-emerald-900" : ""
+                }`}
+              >
+                Price Per Tola
+              </label>
+            </div>
+          </RadioGroup>
           
           <div>
             <label className="text-sm font-medium text-gray-700 mb-1 block flex items-center">
