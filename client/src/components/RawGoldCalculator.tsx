@@ -340,7 +340,7 @@ export default function RawGoldCalculator() {
                       <p className="text-xs text-gray-500">Total Net Profit/Loss</p>
                       <p className={`text-sm font-semibold ${(calculationResult.totalGoldValue - calculationResult.buyingPrice) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         Rs. {Math.abs(calculationResult.totalGoldValue - calculationResult.buyingPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                        {(calculationResult.totalGoldValue - calculationResult.buyingPrice) >= 0 ? ' (Profit' : ' (Loss'} - {((Math.abs(calculationResult.totalGoldValue - calculationResult.buyingPrice) / calculationResult.buyingPrice) * 100).toFixed(2)}%)
+                        {(calculationResult.totalGoldValue - calculationResult.buyingPrice) >= 0 ? ' (Profit' : ' (Loss'} - {((calculationResult.totalGoldValue - calculationResult.buyingPrice) / calculationResult.buyingPrice * 100).toFixed(2)}%)
                       </p>
                     </div>
                   </div>
