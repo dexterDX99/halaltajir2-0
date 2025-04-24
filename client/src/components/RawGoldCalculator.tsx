@@ -202,21 +202,6 @@ export default function RawGoldCalculator() {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem
-                  value="total"
-                  id="total"
-                  className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
-                />
-                <label
-                  htmlFor="total"
-                  className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
-                    !isPricePerTola ? "bg-emerald-50 text-emerald-900" : ""
-                  }`}
-                >
-                  Total Price
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem
                   value="perTola"
                   id="perTola"
                   className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
@@ -228,6 +213,21 @@ export default function RawGoldCalculator() {
                   }`}
                 >
                   Price Per Tola
+                </label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem
+                  value="total"
+                  id="total"
+                  className="text-emerald-600 border-emerald-600 focus:ring-emerald-600"
+                />
+                <label
+                  htmlFor="total"
+                  className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
+                    !isPricePerTola ? "bg-emerald-50 text-emerald-900" : ""
+                  }`}
+                >
+                  Total Price
                 </label>
               </div>
             </RadioGroup>
