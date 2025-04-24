@@ -180,14 +180,33 @@ export default function RawGoldCalculator() {
                 className="w-full border border-green-100 focus:border-green-200 focus:ring-green-200 rounded-md transition-all"
                 value={isWeightInGrams ? weightGram : weightTola}
                 onChange={(e) => {
+                  const newValue = e.target.value;
+                  const numericValue = parseFloat(newValue) || 0;
+
                   if (isWeightInGrams) {
-                    setWeightGram(e.target.value);
-                    const newTolaWeight = (parseFloat(e.target.value) / 11.664).toFixed(3);
+                    setWeightGram(newValue);
+                    const newTolaWeight = (numericValue / 11.664).toFixed(3);
                     setWeightTola(newTolaWeight);
+
+                    if (isPricePerTola) {
+                      const perTola = parseFloat(buyingPricePerTola) || 0;
+                      setBuyingPrice((perTola * parseFloat(newTolaWeight)).toFixed(2));
+                    } else {
+                      const total = parseFloat(buyingPrice) || 0;
+                      setBuyingPricePerTola(parseFloat(newTolaWeight) > 0 ? (total / parseFloat(newTolaWeight)).toFixed(2) : "0");
+                    }
                   } else {
-                    setWeightTola(e.target.value);
-                    const newGramWeight = (parseFloat(e.target.value) * 11.664).toFixed(2);
+                    setWeightTola(newValue);
+                    const newGramWeight = (numericValue * 11.664).toFixed(2);
                     setWeightGram(newGramWeight);
+
+                    if (isPricePerTola) {
+                      const perTola = parseFloat(buyingPricePerTola) || 0;
+                      setBuyingPrice((perTola * numericValue).toFixed(2));
+                    } else {
+                      const total = parseFloat(buyingPrice) || 0;
+                      setBuyingPricePerTola(numericValue > 0 ? (total / numericValue).toFixed(2) : "0");
+                    }
                   }
                 }}
               />
@@ -260,18 +279,17 @@ export default function RawGoldCalculator() {
                   value={isPricePerTola ? buyingPricePerTola : buyingPrice}
                   onChange={(e) => {
                     const newValue = e.target.value;
+                    const numericValue = parseFloat(newValue) || 0;
+                    const currentWeightTola = parseFloat(weightTola) || 0;
+
                     if (isPricePerTola) {
                       setBuyingPricePerTola(newValue);
-                      if (weightTola && newValue) {
-                        const totalPrice = (parseFloat(newValue) * parseFloat(weightTola)).toFixed(2);
-                        setBuyingPrice(totalPrice);
-                      }
+                      const totalPrice = (numericValue * currentWeightTola).toFixed(2);
+                      setBuyingPrice(totalPrice);
                     } else {
                       setBuyingPrice(newValue);
-                      if (weightTola && newValue) {
-                        const perTolaPrice = (parseFloat(newValue) / parseFloat(weightTola)).toFixed(2);
-                        setBuyingPricePerTola(perTolaPrice);
-                      }
+                      const perTolaPrice = currentWeightTola > 0 ? (numericValue / currentWeightTola).toFixed(2) : "0";
+                      setBuyingPricePerTola(perTolaPrice);
                     }
                     calculatePrice();
                   }}
