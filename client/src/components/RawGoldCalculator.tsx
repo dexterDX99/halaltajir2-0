@@ -132,7 +132,7 @@ export default function RawGoldCalculator() {
                 <label
                   htmlFor="r-tola"
                   className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
-                    !weightGram ? "bg-emerald-50 text-emerald-900" : ""
+                    !isWeightInGrams ? "bg-emerald-50 text-emerald-900" : ""
                   }`}
                 >
                   Weight in Tola
@@ -147,7 +147,7 @@ export default function RawGoldCalculator() {
                 <label
                   htmlFor="r-grams"
                   className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer p-2 rounded ${
-                    !!weightGram ? "bg-emerald-50 text-emerald-900" : ""
+                    isWeightInGrams ? "bg-emerald-50 text-emerald-900" : ""
                   }`}
                 >
                   Weight in Grams
@@ -156,9 +156,14 @@ export default function RawGoldCalculator() {
             </RadioGroup>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">
-                Gold Weight ({!!weightGram ? "Grams" : "Tola"})
+              <label className="text-sm font-medium text-gray-700 mb-1 block flex items-center">
+                Gold Weight ({isWeightInGrams ? "Grams" : "Tola"})
                 <span className="text-red-500 ml-1">*</span>
+                {weightGram && weightTola && (
+                  <span className="ml-2 text-gray-500 text-xs">
+                    {isWeightInGrams ? `(In Tola: ${weightTola})` : `(In Grams: ${weightGram})`}
+                  </span>
+                )}
               </label>
               <Input 
                 type="number" 
@@ -177,12 +182,6 @@ export default function RawGoldCalculator() {
                   }
                 }}
               />
-              {!!weightGram && weightTola && (
-                <p className="text-xs text-gray-500 mt-1">Equivalent to {weightTola} tola</p>
-              )}
-              {!weightGram && weightGram && (
-                <p className="text-xs text-gray-500 mt-1">Equivalent to {weightGram} grams</p>
-              )}
             </div>
           </div>
 
